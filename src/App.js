@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { SeriesList } from './Components/SeriesList';
+import EditSeries from './Components/EditSeries'; 
+import DeleteSeries from './Components/DeleteSeries'; 
+import { useParams } from 'react-router-dom';
+
+function EditSeriesWithId() {
+  const { id } = useParams();
+  return <EditSeries id={id} />;
+}
+
+function DeleteSeriesWithId() {
+  const { id } = useParams();
+  return <DeleteSeries id={id} />;
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<SeriesList />} />
+        <Route path="/edit-series/:id" element={<EditSeriesWithId />} />
+        <Route path="/delete-series/:id" element={<DeleteSeriesWithId />} />
+      </Routes>
+    </Router>
   );
 }
 
